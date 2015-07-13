@@ -1,0 +1,20 @@
+#!/bin/sh -x
+rm *.o
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c const.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c matrices.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c files.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c flags.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c read_in.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c int_to_char.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c diag_herm_sub.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c read_dynmat.f90
+ifort  -O2 -g -traceback -CB  -vec-report     -mcmodel=large -shared-intel -c read_Rp.f90
+ifort  -O2 -g -traceback -CB  -vec-report    -mcmodel=large -shared-intel -c cryst_to_cart.f90
+ifort  -O2 -g -traceback -CB  -vec-report    -mcmodel=large -shared-intel -c convert_in.f90
+#ifort  -O2 -g -traceback   -vec-report -mcmodel=large -shared-intel -c reduce_g_new.f90
+#ifort  -O2 -g -traceback   -vec-report    -mcmodel=large -shared-intel -c reduce_g_disen.f90
+ifort  -O2 -g -traceback -CB  -vec-report    -mcmodel=large -shared-intel -c ph_InvFT_D.f90
+ifort  -O2 -g -traceback -CB  -vec-report    -mcmodel=large -shared-intel -c ph_ifc_out.f90
+ifort  -O2 -g -traceback -CB  -vec-report   -mcmodel=large -shared-intel -c main.f90
+#ifort -L/opt/intel/Compiler/11.0/074/mkl/lib/em64t -fast -O2 -o elph_exe const.o init_const.o read_input.o gen_kmesh.o search_kpq.o cryst_to_cart.o reduce_g.o elph_InvFT.o elph_ForwFT.o el_Wan2Bl.o ph_InvFT.o ph_ForwFT.o alpha2F.o  main.o -lmkl_intel_lp64 -Wl,--start-group -lmkl_intel_thread -lmkl_core -Wl,--end-group -liomp5  -lpthread 
+ifort   -O2  -o ph_interpol.exe const.o matrices.o files.o flags.o read_in.o int_to_char.o diag_herm_sub.o read_dynmat.o read_Rp.o cryst_to_cart.o convert_in.o ph_InvFT_D.o ph_ifc_out.o  main.o -lmkl_intel_lp64 -Wl,--start-group -lmkl_intel_thread -lmkl_core -Wl,--end-group -liomp5  -lpthread 
